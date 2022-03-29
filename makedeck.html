@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <title>Document</title>
+</head>
+<body>
+  <header>
+    <NAV>
+      <a href="index.html">Study </a>
+      <a href="makedeck.html">Make Card</a>
+      <a href="graph.html">Summary</a>
+    </NAV>
+  </header>
+  <form id ="make-deck">
+
+    <fieldset>
+      <legend>MAKE YOUR OWN DECK</legend>
+      
+      <label for="question">QUESTION:</label>
+      <input type="text" id="question" name="question">
+      
+      <label for="answer">ANSWER:</label>
+      <input type="text" id ="answer" name="answer">
+      <select id = "deck">  
+        <option value ="default"> Default </option>
+        <option value="custom">custom</option>  
+        </select>   
+      
+      </fieldset>
+      <button type="submit">Submit</button>
+    </form>
+    <section id="decklist">
+      <select name="deck" id="showdeck">
+        <option value="default">Default</option>
+        <option value="custom">custom</option>
+      </select>
+      <div id="resultbtn">Show deck</div>
+      <ul id="list"></ul>
+
+    </section>
+  <script src="js/makedeck.js"></script>
+</body>
+</html>
