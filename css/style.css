@@ -1,0 +1,44 @@
+
+.container {  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 0.3fr 0.3fr 0.3fr 3.2fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "navbar navbar navbar"
+    "text text text"
+    "score-info score-info score-info"
+    "chart chart chart";
+}
+
+.navbar { grid-area: navbar; 
+border: 1px solid black;
+padding: 10px;
+width: 100%;
+}
+
+.text { grid-area: text; 
+text-align: left;
+border: 1px solid black;
+padding: 10px;
+width: 100%;
+}
+
+.score-info { grid-area: score-info; 
+color: redaliceblue;
+border: 1px solid black;
+margin: 10px;
+width: 100%;
+
+text-align: center;
+}
+
+.chart { grid-area: chart; 
+border: 1px solid black;
+padding: 20px;
+height: 50%;
+width: 100%;
+display: block;
+text-align: center;
+}
+
