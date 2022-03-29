@@ -2,6 +2,8 @@ let dailyLimit = 10;
 let cardsRemaining =dailyLimit ;
 let randomList = []; // GET LENGTH OF LOCAL STORAGE // MAKE LIST // MAKE RANDOM LIST 
 let createDeck=[] ;
+let randList_2 =[] ;
+let currentIndex=0;
 
 getDeck();
 
@@ -51,6 +53,17 @@ next_button.addEventListener('click', handleNext);
 ///////////////////////////////////////////////////////////////////////////////////
 function  handleNo(){
   // alert('No handler works');
+ 
+  // logic to make increment times shown
+  
+  console.log('no before -'+ currentIndex);
+
+  randList_2.push(  randomList[currentIndex]);
+  incrementList();
+
+  console.log('no after -'+ currentIndex);
+ 
+
 
 }
 ///////////////////////////////////////////////////////////////////////////////////
@@ -78,6 +91,11 @@ function  handleSuspend(){
 ///////////////////////////////////////////////////////////////////////////////////
 
 function  handleNext(){
+
+  //removeAnswer() ;
+  //showQuestion() ; 
+
+
   
 
 }
@@ -97,17 +115,70 @@ function makeCardList(){
   
   // shuffle sequence  set initial random list to this list 
   randomList =   shuffle(sequence) ;
+  
+  //https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 
-
-
+setFirstCard() ;
 
 }
 
 
 
-//Get a  new question
 
-function newQuestion(){
+///////////////////////////////////////////////////////////////////////////////////
+//////On startup checks the length of the list 
+//////Prepopulates the question field
+///////////////////////////////////////////////////////////////////////////////////
+
+function setFirstCard(){
+  //sets the index position
+  currentIndex = randomList.length-1 ;
+  console.log("currentIndex = " + currentIndex) ;
+
+  //displays the first question 
+  // showQuestion();
+
+}
+
+// For the logic make sure that you first pop or move the values 
+// then adjust the current index 
+//if NO
+//its a pop then push so it goes to the first of the list so LENGTH IS THE SAME
+///////// So dont change index 
+
+// if yes or suspend for 4 days then you need to pop and then use the end 
+/////// of that list 
+
+
+///////////////////////////////////////////////////////////////////////////////////
+//////
+///////////////////////////////////////////////////////////////////////////////////
+//Get a  new question
+function showQuestion(){
+
+}
+///////////////////////////////////////////////////////////////////////////////////
+//////
+///////////////////////////////////////////////////////////////////////////////////
+
+function incrementList(){
+
+console.log('increment list CurrentINDEX = ' +currentIndex + 'randList_2.length  = ' + randList_2.length );
+
+  if(currentIndex===0 && randList_2.length >0 ){
+        alert('incrementList else if ');
+            randomList = randList_2;
+            currentIndex = randomList.length-1 ;
+            randList_2 = [];
+
+          } else if(currentIndex>=0){
+            currentIndex = currentIndex-1;
+                }else{
+              alert("Sorry all cards have been suspended.\nPlease reload the page to continue playing.")
+          }
+        }
+
+function showAnswer(){
 
 }
 
@@ -164,7 +235,7 @@ function getDeck (){
   }else{
     // console.log('in getdeck() else') ;
     new Deck ('how old are you','1000','defualt');
-    new Deck ('how whats your name','bob','defualt');
+    new Deck ('how whats your name','bob','default');
     new Deck ('how do you say cool in english','cool','defualt');
     new Deck ('how tall are you','10ft','defualt');
 
