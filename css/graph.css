@@ -1,48 +1,53 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+
+.container {  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 0.3fr 0.3fr 0.3fr 3.2fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "navbar navbar navbar"
+    "text text text"
+    "score-info score-info score-info"
+    "chart chart chart";
 }
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
+
+.navbar { grid-area: navbar; 
+border: 1px solid black;
+padding: 10px;
+width: 100%;
 }
-body {
-	line-height: 1;
+
+.text { grid-area: text; 
+text-align: left;
+border: 1px solid black;
+padding: 10px;
+width: 100%;
 }
-ol, ul {
-	list-style: none;
+
+.score-info { grid-area: score-info; 
+color: redaliceblue;
+border: 1px solid black;
+margin: 10px;
+width: 100%;
+
+text-align: center;
 }
-blockquote, q {
-	quotes: none;
+
+.chart { grid-area: chart; 
+border: 1px solid black;
+padding: 20px;
+height: 50%;
+width: 100%;
+display: block;
+text-align: center;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
+
+
+#myChart{
+	width: 200px;
+	max-height: 400px;
+	text-align: center;
+	margin: 0 auto;
+	padding: 10px;
 }
