@@ -1,0 +1,20 @@
+
+body{
+  /* background-color:aqua; */
+}
+nav{
+  border: 5px solid;
+  background-color:cornflowerblue;
+  height: 3pc;
+}
+
+main{
+  background-color: azure ;
+}
+#question_area{
+  border: 5px solid;
+ 
+}
+
+
+
