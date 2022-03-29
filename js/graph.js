@@ -2,8 +2,11 @@
 
 //Array for holding cards
 let cards = [];
+
+
+
 //Parse stored data
-function parseData(){
+function parseData() {
 
 };
 
@@ -11,75 +14,142 @@ function parseData(){
 
 //Constructor for creating cards
 function Card(key, question, answer, pic, correct, easyCorrect, lReviewed, deck, dateLR, rToday) {
-    this.key = key;
-    this.question = question;
-    this.answer = answer;
-    this.pic = pic;
-    this.correct = correct;
-    this.easyCorrect = easyCorrect;
-    this.lReviewed = lReviewed;
-    this.deck = deck;
-    this.dateLR = dateLR;
-    this.rToday = rToday;
-  };
+  this.key = key;
+  this.question = question;
+  this.answer = answer;
+  this.pic = pic;
+  this.correct = correct;
+  this.easyCorrect = easyCorrect;
+  this.lReviewed = lReviewed;
+  this.deck = deck;
+  this.dateLR = dateLR;
+  this.rToday = rToday;
+};
 
-//Create a test object
-const card1 = new Card(2, "What is JS", "A scripting Language.", "https://w7.pngwing.com/pngs/114/579/png-transparent-pink-cross-stroke-ink-brush-pen-red-ink-brush-ink-leave-the-material-text.png", 'Yes', 'Yes', "3/29/22", "Javascript", "3/29/22", "Yes");
+//Create test objects
+const card1 = new Card(1, "What is JS", "A scripting Language.", "https://w7.pngwing.com/pngs/114/579/png-transparent-pink-cross-stroke-ink-brush-pen-red-ink-brush-ink-leave-the-material-text.png", 'Yes', 'Yes', "3/29/22", "Javascript", "3/29/22", "Yes");
 
-const card2 = new Card(1, 'What is HTML', "HTML is for structure", "www/static/pic",'No', 'No', '3/29/22', 'Javascript',"3/29/22", "Yes");
+const card2 = new Card(2, 'What is HTML', "HTML is for structure", "www/static/pic", 'No', 'No', '3/29/22', 'HTML', "3/29/22", "Yes");
+
+const card3 = new Card(12, 'How is HTML Structured', "Semantically", "www/static/pic", 'No', 'No', '3/29/22', 'HTML', "3/29/22", "Yes");
+
+const card4 = new Card(2, 'How would you identify a style for an element with an id of text in CSS?', "#text", "www/static/pic", 'Yes', 'No', '3/29/22', 'CSS', "3/29/22", "Yes");
+
+const card5 = new Card(7, 'How do you declare a function with the name charter?', "function Charter(){};", "www/static/pic", 'No', 'No', '3/29/22', 'Javascript', "3/29/22", "Yes");
+
+const card6 = new Card(8, 'How would you attach a function to an element?', 'onSumbit=myFunction()', "0", 'No', 'No', '3/29/22', 'HTML', "2/29/22", "Yes");
+
+const card7 = new Card(10, 'What character do you input to start of Doctype when coding HTML?', "!", "www/static/pic", 'No', 'No', '3/29/22', 'HTML', "3/09/22", "Yes");
+
+
+const card8 = new Card(9, 'How do you select HTML elements using CSS?', "Via CSS Selectors", "www/static/pic", 'Yes', 'Yes', '3/29/22', 'CSS', "3/22/22", "Yes");
+
 
 //Push to cards array
 cards.push(card1);
-cards.push(card2)
+cards.push(card2);
+cards.push(card3);
+cards.push(card4);
+cards.push(card5);
+cards.push(card6);
+cards.push(card7);
+cards.push(card8);
 
 //show cards array contents
 console.table(cards);
 
+
+function sum(a){
+  let b = 1;
+  return a + b;
+}
 function displayResults(cards) {
-    //Loop to consolidate values
+  //Loop to consolidate values
 };
 
-function chartResults(){
-   
+function chartResults() {
+
+//Array for holding card data
+let cardData = [];
+
+//Variables that change with each loop iteration
+let correctNum = [];
+
+//Array for holding deck names
+let deckArray = [];
+
+//Calculate Deck Totals
+ let dTotal = 0;
+
+    let num = 0;
+  //Loop through card objects
+  for (let index = 0 ; index < cards.length; index++) {
+    //Getting Correect status
+    const correct = cards[index].correct; // Yes or No
+    const deck = cards[index].deck; // Name of the deck or category
+
+    //Get DeckName if unique and push to deck array
+    if (deckArray.includes(deck) === false) {
+      deckArray.push(deck);
+    };
+
+    // correctNum = 0; 
+
+    //Loop through card and add questions to deck array
+    for (let i = 0; i < cards.length; i++ ) {
+      const deck = cards[index].deck;
+      const correct = cards[index].correct;
+
+      if (correct === 'Yes' && deckArray.includes(deck)) {
+        correct = correct + 1;
+      }
+    }
+    correctNum.push(num);
+    num = 0;
+    console.log('Deck total:' + num);
+  };
+  console.table(deckArray);
+  console.table(correctNum);
 
 
-
+cardData.push(num);
+//Generate chart
 
   const ctx = document.getElementById('myChart').getContext('2d');
-const myChart = new Chart(ctx, {
+  const myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
+      labels: deckArray,
+      datasets: [{
+        label: '# of Correct Questions',
+        data: cardData,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
     },
     options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
+      scales: {
+        y: {
+          beginAtZero: true
         }
+      }
     }
-})
+  })
 
 
 
