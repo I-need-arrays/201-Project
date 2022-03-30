@@ -1,5 +1,6 @@
 // 'use strict'
 
+
 let dailyLimit = 10;
 let cardsRemaining =dailyLimit ;
 let randomList = []; // GET LENGTH OF LOCAL STORAGE // MAKE LIST // MAKE RANDOM LIST 
