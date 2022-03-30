@@ -9,9 +9,15 @@ let createDeck = [];
 let customDeck =[];
 
 //**************** Constroctor object********************** 
-function Deck (question,answer,deck) {
+function Deck (question,answer,img,deck) {
   this.question = question;
   this.answer = answer;
+  this.img = img;
+  if (this.img) {
+    this.img = img;
+  }else{
+    this.img = 0;
+  }
   this.deck = deck;
   this.views = 0;
   this.correct = 0;
@@ -43,10 +49,10 @@ function getDeck (){
 
   }else{
 
-    new Deck ('how old are you','1000','default');
-    new Deck ('how whats your name','bob','default');
-    new Deck ('how do you say cool in english','cool','default');
-    new Deck ('how tall are you','10ft','default'); 
+    new Deck ('how old are you','1000','https://picsum.photos/200','default');
+    new Deck ('how whats your name','bob','https://picsum.photos/200','default');
+    new Deck ('how do you say cool in english','cool','https://picsum.photos/200','default');
+    new Deck ('how tall are you','10ft','https://picsum.photos/200','default'); 
 
     // let strDeck = JSON.stringify(createDeck);
     // localStorage.setItem('decks',strDeck);
@@ -60,9 +66,10 @@ function handelSubmit (event) {
 
   let question = event.target.question.value;
   let answer = event.target.answer.value;
+  let img = event.target.img.value;
   let deck = event.target.deck.value;
 
-  let newDeck = new Deck(question,answer,deck);
+  let newDeck = new Deck(question,answer,img,deck);
   // saving to local storage
   deckForm.reset();
 }
