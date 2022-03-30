@@ -1,9 +1,14 @@
+// 'use strict'
+
 let dailyLimit = 10;
 let cardsRemaining =dailyLimit ;
 let randomList = []; // GET LENGTH OF LOCAL STORAGE // MAKE LIST // MAKE RANDOM LIST 
 let createDeck=[] ;
 let randList_2 =[] ;
 let currentIndex=0;
+ let adjustmentForZero =0 ;
+
+ let suspender =0;  // turns to 1 every suspend so that on the final card when suspend is hit next will throw an error.
 
 getDeck();
 
@@ -36,6 +41,7 @@ makeCardList();
 // add Event listeners 
 
 let buttonHolder = document.getElementById("question_area");
+// let Question_list  = document.getElementById("Question_list");
 let no_button  = document.getElementById("b1"); 
 let yes_button  = document.getElementById("b2"); 
 let suspend_button  = document.getElementById("b3"); 
@@ -47,6 +53,9 @@ suspend_button.addEventListener('click', handleSuspend);
 next_button.addEventListener('click', handleNext);
 
 
+let pause =1;  // Prevents adding in another answer when card is already displayed 
+
+
 ///////////////////////////////////////////////////////////////////////////////////
 //////Puts the card index in the front so that it will be seen again after all 
 //////unseen cards are done 
@@ -56,15 +65,28 @@ function  handleNo(){
  
   // logic to make increment times shown
   
-  console.log('no before -'+ currentIndex);
+  // console.log('no before -'+ currentIndex);
+
+  //increments the View count 
+
+  incrementViews();
 
   randList_2.push(  randomList[currentIndex]);
-  incrementList();
 
-  console.log('no after -'+ currentIndex);
- 
+  if(pause===1){
+  
+  showAnswer()
 
 
+  // increments position in list 
+  // incrementList();
+
+  // console.log('no after -'+ currentIndex);
+  }
+
+  pause=0;
+
+suspender=0;
 }
 ///////////////////////////////////////////////////////////////////////////////////
 //////Puts the card index in the front so that it will be seen again after all 
@@ -72,7 +94,21 @@ function  handleNo(){
 ///////////////////////////////////////////////////////////////////////////////////
 function  handleYes(){
 
+incrementViews();
+incrementCorrect() ; 
 
+if(pause=== 1){
+  randList_2.push(  randomList[currentIndex]);
+  // console.log(randList_2);
+  showAnswer()
+
+  //increments the View count AND NUMBER OF CORRECT 
+  // incrementList();
+ }
+
+ pause=0;
+  
+suspender =0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -80,8 +116,19 @@ function  handleYes(){
 ////// 
 ///////////////////////////////////////////////////////////////////////////////////
 function  handleSuspend(){
-  
+  incrementViews() ;
+  incrementCorrect() ; 
+  // console.log(randList_2);
 
+  //increments the View count 
+  // For strect play with the date and see if you can get it to stay out for 4 days 
+  if(pause===1){
+  showAnswer()
+  // incrementList();
+  }
+
+  suspender =1;
+  pause=0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -92,13 +139,24 @@ function  handleSuspend(){
 
 function  handleNext(){
 
-  //removeAnswer() ;
-  //showQuestion() ; 
+  if(currentIndex===0 && randList_2.length === 0 &suspender==1){
+    alert("Sorry all cards have been suspended.\nPlease reload the page to continue playing.")
 
-
+    // The alert is firing one to early because arrays have a 0 index
+    // so on the handle next this will allow it to show the final card
+    // On next click of suspend it should throw a terminal error 
+    adjustmentForZero =1;
   
+                           }
+
+                           incrementList();
+  removeAnswer() ;
+  showQuestion() ; 
+pause =1 ;
 
 }
+
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -120,7 +178,7 @@ function makeCardList(){
 
 setFirstCard() ;
 
-}
+                     }
 
 
 
@@ -133,12 +191,45 @@ setFirstCard() ;
 function setFirstCard(){
   //sets the index position
   currentIndex = randomList.length-1 ;
-  console.log("currentIndex = " + currentIndex) ;
+  // console.log("currentIndex = " + currentIndex) ;
 
   //displays the first question 
-  // showQuestion();
+  showQuestion();
 
 }
+
+
+function incrementViews(){
+  //increments the views 
+  // console.log( parsedQuestions[currentIndex].views+1);
+
+ 
+  parsedQuestions[currentIndex].views+=1 ; 
+  //clear out the old data 
+  localStorage.removeItem('decks') ;
+  //write in new data with incremented values
+  let strDeck = JSON.stringify(parsedQuestions);
+  localStorage.setItem('decks',strDeck);
+
+
+}
+
+function incrementCorrect(){
+  parsedQuestions[currentIndex].correct += 1 ; 
+  //clear out the old data 
+  localStorage.removeItem('decks') ;
+  //write in new data with incremented values
+  let strDeck = JSON.stringify(parsedQuestions);
+  localStorage.setItem('decks',strDeck);
+
+
+}
+
+// function incrementQuestion(){
+
+// }
+
+
 
 // For the logic make sure that you first pop or move the values 
 // then adjust the current index 
@@ -148,15 +239,62 @@ function setFirstCard(){
 
 // if yes or suspend for 4 days then you need to pop and then use the end 
 /////// of that list 
-
+let qquestion = document.getElementById("Question");  //li
 
 ///////////////////////////////////////////////////////////////////////////////////
 //////
 ///////////////////////////////////////////////////////////////////////////////////
+
 //Get a  new question
 function showQuestion(){
 
+  // let question = document.createElement('li') ;  
+  Question.textContent = parsedQuestions[currentIndex].question;
+  // question.textContent = parsedQuestions[currentIndex].question
+  // Question.appendChild(question);
+  // question.textContent = parsedQuestions[currentIndex].question; 
+  // Question.appendChild(question); // li -> li
+
+  // question.textContent = parsedQuestions[currentIndex].question; 
+  // Question_list.appendChild(question);
+  
+
 }
+
+function showAnswer(){
+  let bar = document.createElement('hr');
+  Question_list.appendChild(bar) ;
+  bar.id='removable_divider';
+
+
+  let answer = document.createElement('li');
+  answer.textContent= parsedQuestions[currentIndex].answer ;
+  answer.id = 'answer' ;
+  Question_list.appendChild(answer);
+  // let answer1 = document.getElementById('answer');
+  // Question_list.appendChild(answer1);
+
+}
+
+function removeQuestion(){
+  Question.removeChild(question);
+  
+
+}
+
+
+
+function removeAnswer(){
+let answer1 = document.getElementById('answer');
+let bar = document.getElementById('removable_divider');
+
+Question_list.removeChild(answer1);
+Question_list.removeChild(bar);
+
+}
+
+
+
 ///////////////////////////////////////////////////////////////////////////////////
 //////
 ///////////////////////////////////////////////////////////////////////////////////
@@ -165,22 +303,50 @@ function incrementList(){
 
 console.log('increment list CurrentINDEX = ' +currentIndex + 'randList_2.length  = ' + randList_2.length );
 
-  if(currentIndex===0 && randList_2.length >0 ){
-        alert('incrementList else if ');
+ 
+
+
+
+
+
+
+
+
+if(currentIndex===0 && randList_2.length > 0 ){
+        // alert('incrementList else if ');
+
+      //Once you have sorted thru the first loop this will go take the elements from the secondary list 
+      // reassign them to the main list so that you can iterate again.
+      // it will go until there are no more in the secondary loop because as you suspend they are not put 
+      // back into the secondary loop.
+      //  So on the press of the suspend there will be nothing to display so it will give you an alert.
             randomList = randList_2;
             currentIndex = randomList.length-1 ;
             randList_2 = [];
 
-          } else if(currentIndex>=0){
+          } else if(  currentIndex>0  ){
+            console.log("should have gotten an a alert");
             currentIndex = currentIndex-1;
-                }else{
-              alert("Sorry all cards have been suspended.\nPlease reload the page to continue playing.")
-          }
-        }
+                }
+                
+                
+          //       else if(currentIndex===0 && randList_2.length === 0){
+          //     alert("Sorry all cards have been suspended.\nPlease reload the page to continue playing.")
 
-function showAnswer(){
+          //     // possibly reset all the things. 
 
-}
+          // }
+        
+        
+          // if(currentIndex===0 && randList_2.length === 0){
+          //   alert("Sorry all cards have been suspended.\nPlease reload the page to continue playing.")
+
+          //                          }
+        
+        
+        }// end increment 
+
+
 
 // No button function
 
@@ -248,12 +414,16 @@ function getDeck (){
 
 
   function Deck (question,answer,deck) {
-    console.log('Deck constructor');
+    // console.log('Deck constructor');
 
     this.question = question;
     this.answer = answer;
     this.deck = deck;
-  
+    this.views = 0;
+    this.correct = 0;
+
+    // console.log(  this.views) ;
+
   // pushed to the empty array
     createDeck.push(this);
   }
