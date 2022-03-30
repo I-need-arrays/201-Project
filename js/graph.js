@@ -37,7 +37,7 @@ const card4 = new Card(2, 'How would you identify a style for an element with an
 
 const card5 = new Card(7, 'How do you declare a function with the name charter?', "function Charter(){};", "www/static/pic", 'No', 'No', '3/29/22', 'Javascript', "3/29/22", "Yes");
 
-const card6 = new Card(8, 'How would you attach a function to an element?', 'onSumbit=myFunction()', "0", 'No', 'No', '3/29/22', 'HTML', "2/29/22", "Yes");
+const card6 = new Card(8, 'How would you attach a function to an element?', 'onSumbit=myFunction()', "0", 'Yes', 'No', '3/29/22', 'HTML', "2/29/22", "Yes");
 
 const card7 = new Card(10, 'What character do you input to start of Doctype when coding HTML?', "!", "www/static/pic", 'No', 'No', '3/29/22', 'HTML', "3/09/22", "Yes");
 
@@ -59,10 +59,10 @@ cards.push(card8);
 console.table(cards);
 
 
-function sum(a){
-  let b = 1;
-  return a + b;
-}
+// function sum(a){
+//   let b = 1;
+//   return a + b;
+// }
 function displayResults(cards) {
   //Loop to consolidate values
 };
@@ -72,15 +72,16 @@ function chartResults() {
 //Array for holding card data
 let cardData = [];
 
+let tempData=[];
+
 //Variables that change with each loop iteration
-let correctNum = [];
+let correctNum = 0;
 
 //Array for holding deck names
 let deckArray = [];
 
-//Calculate Deck Totals
- let dTotal = 0;
-
+//Calculate unique Deck
+    let dTotal = 0;
     let num = 0;
   //Loop through card objects
   for (let index = 0 ; index < cards.length; index++) {
@@ -88,31 +89,71 @@ let deckArray = [];
     const correct = cards[index].correct; // Yes or No
     const deck = cards[index].deck; // Name of the deck or category
 
+    tempData.push(deck + ',' +correct); 
+    
     //Get DeckName if unique and push to deck array
     if (deckArray.includes(deck) === false) {
       deckArray.push(deck);
     };
 
-    // correctNum = 0; 
-
-    //Loop through card and add questions to deck array
-    for (let i = 0; i < cards.length; i++ ) {
-      const deck = cards[index].deck;
-      const correct = cards[index].correct;
-
-      if (correct === 'Yes' && deckArray.includes(deck)) {
-        correct = correct + 1;
-      }
-    }
-    correctNum.push(num);
-    num = 0;
-    console.log('Deck total:' + num);
   };
-  console.table(deckArray);
-  console.table(correctNum);
+
+  // console.table(tempData);
+  // //Loop through card and add questions to deck array
+  // for (let i = 0; i < deckArray.length; i++) {
+  //   let deckId = deckArray[i];
+
+  //   //Loop through answers and write to cardData array
+  //   for (let index = 0; index < cards.length; index++) {
+  //     const correct = cards[index].correct; // Yes or No
+  //     const deck = cards[index].deck; // Name of the deck or category
+
+  //     if (correct === 'Yes' && deckId === deck) {
+  //       correctNum++;
+  //     }
+  //     //[2,1,1]
+
+  //   };
+  //   cardData.push(correctNum);
+  // };
+  let x = [];
+ 
 
 
-cardData.push(num);
+  for (let index = 0; index < deckArray.length; index++) { 
+    let counter = 0;
+
+    let deckID = deckArray[index];
+   // console.log(deckArray[index]);
+
+
+    for (let i = 0; i < cards.length; i++) {
+      //console.log(target[0]);
+      let x = [cards[i].deck,cards[i].correct];
+      // console.log(x);
+
+      if (x.includes(deckID) === true && x.includes('Yes') === true) {
+        counter++;
+
+      };
+      // expected output: tru
+      
+    };
+   
+    cardData.push(counter);  
+   console.table('Data :' + cardData);
+  };
+
+console.table(cardData);
+
+  // console.table(deckArray);
+  
+  // [javascript, html, css]
+  // [1,1,2]  <cardData
+
+// cardData.push(correctNum);
+
+//cardData = [1,1,2];
 //Generate chart
 
   const ctx = document.getElementById('myChart').getContext('2d');
