@@ -1,0 +1,114 @@
+/* code got from codepen */
+header {
+  margin-top: 10px;
+  font-size: 1.5em;
+  align-self: flex-start;
+
+}
+nav {
+  width: max-content;
+  color: white;
+}
+ body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient( black ,dodgerblue);
+  font-family:sans-serif
+} 
+.center {
+  position: absolute; 
+  top: 30%;
+  left: 50%; 
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+.center legend {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+.inputbox {
+  position: relative;
+}
+.center .inputbox input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+.center .inputbox:last-child {
+  margin-bottom: 0;
+}
+.inputbox label {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: .5s;
+}
+.inputbox input:focus ~ label,
+.inputbox input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: gray;
+  font-size: 12px;
+}
+#button {
+  width: 50%;
+  background: linear-gradient(45deg,black, dodgerblue);
+  color: #fff;
+  border: #fff;
+}
+#button:hover {
+  background: gray
+}
+#resultbtn {
+  width: max-content;
+  font-size: 1.2em;
+  border: 2px solid black;
+  padding: 5px;
+  border-radius: 5px;
+  border: white;
+  background-color: dodgerblue;
+}
+#list {
+  width: 300px;
+  height: 100px;
+  overflow: scroll;
+}
+#list li {
+  list-style: lower-alpha ;
+  list-style-position: inside;
+  margin-top: 2px;
+  padding: 5px;
+  color:aliceblue;
+
+}
+#results{
+  position: absolute; 
+  top: 60%;
+  left: 50%; 
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+}
+

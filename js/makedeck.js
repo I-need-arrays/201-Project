@@ -7,11 +7,14 @@ let resultsBtn = document.getElementById('resultbtn');
 // ************************global varible
 let createDeck = [];
 let customDeck =[];
+
 //**************** Constroctor object********************** 
 function Deck (question,answer,deck) {
   this.question = question;
   this.answer = answer;
   this.deck = deck;
+  this.views = 0;
+  this.correct = 0;
 
   // pushed to the empty array based on deck name
   // createDeck.push(this);
@@ -66,6 +69,7 @@ function handelSubmit (event) {
 // shows a list of the decks that they have 
 function handelResults (event) {
   event.preventDefault();
+
   if (showDeck.value === 'default'){
     for(let i in createDeck) {
       let liElem = document.createElement('li');
@@ -79,6 +83,7 @@ function handelResults (event) {
       list.appendChild(liElem);
     }
   }
+
 
 }
 getDeck();
