@@ -249,15 +249,10 @@ let qquestion = document.getElementById("Question");  //li
 //Get a  new question
 function showQuestion(){
 
-  // let question = document.createElement('li') ;  
+  
   Question.textContent = parsedQuestions[currentIndex].question;
-  // question.textContent = parsedQuestions[currentIndex].question
-  // Question.appendChild(question);
-  // question.textContent = parsedQuestions[currentIndex].question; 
-  // Question.appendChild(question); // li -> li
+ 
 
-  // question.textContent = parsedQuestions[currentIndex].question; 
-  // Question_list.appendChild(question);
   
 
 }
@@ -266,6 +261,16 @@ function showAnswer(){
   let bar = document.createElement('hr');
   Question_list.appendChild(bar) ;
   bar.id='removable_divider';
+
+  if(parsedQuestions[currentIndex].img !=0 ){
+    // console.log('if works');
+    let img_1 = document.createElement('img');
+    Question_list.appendChild(img_1);
+    img_1.id = 'img_1';
+    // console.log(parsedQuestions[currentIndex].img);
+    img_1.src=parsedQuestions[currentIndex].img;
+
+  } 
 
 
   let answer = document.createElement('li');
@@ -289,6 +294,11 @@ function removeAnswer(){
 let answer1 = document.getElementById('answer');
 let bar = document.getElementById('removable_divider');
 
+let img_1 = document.getElementById('img_1');
+
+  
+Question_list.removeChild(img_1);
+
 Question_list.removeChild(answer1);
 Question_list.removeChild(bar);
 
@@ -303,14 +313,6 @@ Question_list.removeChild(bar);
 function incrementList(){
 
 console.log('increment list CurrentINDEX = ' +currentIndex + 'randList_2.length  = ' + randList_2.length );
-
- 
-
-
-
-
-
-
 
 
 if(currentIndex===0 && randList_2.length > 0 ){
@@ -348,19 +350,6 @@ if(currentIndex===0 && randList_2.length > 0 ){
         }// end increment 
 
 
-
-// No button function
-
-// Yes button function
-
-// Suspend 4 days function 
-
-//Next button function
-
-//possible functions
-
-// if statement for when cards reach daily limit 
-// Congrats function 
 
 
 
@@ -401,10 +390,16 @@ function getDeck (){
 
   }else{
     // console.log('in getdeck() else') ;
-    new Deck ('how old are you','1000','defualt');
-    new Deck ('how whats your name','bob','default');
-    new Deck ('how do you say cool in english','cool','defualt');
-    new Deck ('how tall are you','10ft','defualt');
+    // new Deck ('how old are you','1000','default');
+    // new Deck ('how whats your name','bob','default');
+    // new Deck ('how do you say cool in english','cool','defualt');
+    // new Deck ('how tall are you','10ft','defualt');
+
+
+    new Deck ('how old are you','1000','https://picsum.photos/200','default');
+    new Deck ('how whats your name','bob',"https://picsum.photos/201",'default');
+    new Deck ('how do you say cool in english','cool',"https://picsum.photos/202",'default');
+    new Deck ('how tall are you','10ft',"https://picsum.photos/203",'default'); 
 
     let strDeck = JSON.stringify(createDeck);
     localStorage.setItem('decks',strDeck);
@@ -414,7 +409,7 @@ function getDeck (){
   }
 
 
-  function Deck (question,answer,deck) {
+  function Deck (question,answer,img=0 ,deck) {
     // console.log('Deck constructor');
 
     this.question = question;
@@ -422,6 +417,11 @@ function getDeck (){
     this.deck = deck;
     this.views = 0;
     this.correct = 0;
+    // console.log('heya');
+
+    this.img = img;
+
+   
 
     // console.log(  this.views) ;
 
