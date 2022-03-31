@@ -7,12 +7,24 @@ let randomList = []; // GET LENGTH OF LOCAL STORAGE // MAKE LIST // MAKE RANDOM 
 let createDeck=[] ;
 let randList_2 =[] ;
 let currentIndex=0;
- let adjustmentForZero =0 ;
+let adjustmentForZero =0 ;
+let uniqueDecks=[];
+let temp = [];
+let deckAdjustedIndex = null;
+
+let deck_drop_down = document.getElementById("deck_drop_down") ;
+//##
+let currentDeck = deck_drop_down.value;
+// let currentDeck = 'custom';
+
 
  let suspender =0;  // turns to 1 every suspend so that on the final card when suspend is hit next will throw an error.
+    
 
 getDeck();
-
+    
+//##
+// changeCurrentDeck();
 
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -20,6 +32,7 @@ getDeck();
 //////To a list that can be used for logic 
 ///////////////////////////////////////////////////////////////////////////////////
 let retreivedQuestions = localStorage.getItem('decks');
+//##
 let parsedQuestions = JSON.parse(retreivedQuestions) ; 
 
 
@@ -30,7 +43,7 @@ let parsedQuestions = JSON.parse(retreivedQuestions) ;
 
 makeCardList();
 
-
+getUniqueDecks();
 
 // makeDB{
 //   //check if it database exists
@@ -113,8 +126,8 @@ suspender =0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
-//////
-////// 
+////// Acts like NO and YES but does does not push to the 2nd list effectively 
+////// preventing it from being used in the future. 
 ///////////////////////////////////////////////////////////////////////////////////
 function  handleSuspend(){
   incrementViews() ;
@@ -125,7 +138,7 @@ function  handleSuspend(){
   // For strect play with the date and see if you can get it to stay out for 4 days 
   if(pause===1){
   showAnswer()
-  // incrementList();
+ 
   }
 
   suspender =1;
@@ -151,10 +164,28 @@ function  handleNext(){
                            }
 
                            incrementList();
-  removeAnswer() ;
+                            removeAnswer() ;
+
+  if(deck_drop_down.value != currentDeck){
+    //this needs to filter the data
+    //make the parsed based on this deck
+    //
+    // changeDeck() ;
+    //##
+    // changeCurrentDeck();
+    console.log('handleNext registered deck swap') ;
+    // makeCardList();
+
+
+  }
+
   showQuestion() ; 
 pause =1 ;
 
+}
+
+function changeCurrentDeck(){
+  currentDeck = deck_drop_down.value ;
 }
 
 
@@ -165,24 +196,53 @@ pause =1 ;
 //////Known cards will be popped cards that need to be repeated will go to the front
 ///////////////////////////////////////////////////////////////////////////////////
 function makeCardList(){
+  //##add decks fn
+  // changeCurrentDeck();
+
+  //sorts the deck by the deck only
+  //this way you only see those cards 
+  
+  //##
+//  parsedQuestions = JSON.parse(retreivedQuestions)
+//  console.log('parsed inside ' + parsedQuestions.length);
+//  parsedQuestions;
+  
+
+  for (let i =0;i<parsedQuestions.length; i++){
+  //  console.log(  parsedQuestions[i].deck  );
+   
+  if(parsedQuestions[i].deck === currentDeck){
+      temp.push(i) ;
+      console.log('pushing @201   ' +parsedQuestions[i]  ) ;
+                }
+
+
+  }// end for 
+
+  // reassigns the parsed questions to the new sorted value 
+  
+
+
+
+
+  //##add decks fn
 
   // console.log('in make cards ' + parsedQuestions.length);
 
   //make sequence 
   //https://stackoverflow.com/questions/3751520/how-to-generate-sequence-of-numbers-chars-in-javascript
-  sequence = Array(parsedQuestions.length).fill().map((element, index) => index )
+ //## to select only the deck I populated the sequence with those that match the deck 
+  // sequence = Array(parsedQuestions.length).fill().map((element, index) => index )
   
   // shuffle sequence  set initial random list to this list 
-  randomList =   shuffle(sequence) ;
-  
+  //##
+  // randomList =   shuffle(sequence) ;
+  randomList =   shuffle(temp) ;
   //https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 
 setFirstCard() ;
 
                      }
-
-
-
 
 ///////////////////////////////////////////////////////////////////////////////////
 //////On startup checks the length of the list 
@@ -191,7 +251,16 @@ setFirstCard() ;
 
 function setFirstCard(){
   //sets the index position
+  
+  
+  //## this is not updating the cards now that there is a deck in it 
   currentIndex = randomList.length-1 ;
+  // this should give me the value of the card that should be adjusted
+      //  deckAdjustedIndex=randomList[currentIndex];
+
+    // currentIndex = currentIndex[randomList.length-1];
+  
+    //##
   // console.log("currentIndex = " + currentIndex) ;
 
   //displays the first question 
@@ -204,8 +273,11 @@ function incrementViews(){
   //increments the views 
   // console.log( parsedQuestions[currentIndex].views+1);
 
- 
-  parsedQuestions[currentIndex].views+=1 ; 
+  //##
+  // parsedQuestions[currentIndex].views+=1 ; 
+  deckAdjustedIndex=randomList[currentIndex];
+  parsedQuestions[deckAdjustedIndex].views+=1 ; 
+
   //clear out the old data 
   localStorage.removeItem('decks') ;
   //write in new data with incremented values
@@ -216,7 +288,10 @@ function incrementViews(){
 }
 
 function incrementCorrect(){
-  parsedQuestions[currentIndex].correct += 1 ; 
+  //##
+  //parsedQuestions[currentIndex].correct += 1 ; 
+    parsedQuestions[deckAdjustedIndex].correct += 1 ; 
+  
   //clear out the old data 
   localStorage.removeItem('decks') ;
   //write in new data with incremented values
@@ -226,9 +301,7 @@ function incrementCorrect(){
 
 }
 
-// function incrementQuestion(){
 
-// }
 
 
 
@@ -249,9 +322,11 @@ let qquestion = document.getElementById("Question");  //li
 //Get a  new question
 function showQuestion(){
 
-  
-  Question.textContent = parsedQuestions[currentIndex].question;
- 
+  //##
+  // Question.textContent = parsedQuestions[currentIndex].question;
+  deckAdjustedIndex=randomList[currentIndex];
+  console.log(deckAdjustedIndex , randomList);
+  Question.textContent = parsedQuestions[deckAdjustedIndex].question;
 
   
 
@@ -262,23 +337,35 @@ function showAnswer(){
   Question_list.appendChild(bar) ;
   bar.id='removable_divider';
 
-  if(parsedQuestions[currentIndex].img !=0 ){
+  // if(parsedQuestions[currentIndex].img !=0 ){
+  //   // console.log('if works');
+  //   let img_1 = document.createElement('img');
+  //   Question_list.appendChild(img_1);
+  //   img_1.id = 'img_1';
+  //   // console.log(parsedQuestions[currentIndex].img);
+  //   img_1.src=parsedQuestions[currentIndex].img;
+  //   img_1.alt="Not Available";
+
+  // } 
+
+  if(parsedQuestions[deckAdjustedIndex].img !=0 ){
     // console.log('if works');
     let img_1 = document.createElement('img');
     Question_list.appendChild(img_1);
     img_1.id = 'img_1';
     // console.log(parsedQuestions[currentIndex].img);
-    img_1.src=parsedQuestions[currentIndex].img;
+    img_1.src=parsedQuestions[deckAdjustedIndex].img;
+    img_1.alt="Not Available";
 
   } 
 
 
   let answer = document.createElement('li');
-  answer.textContent= parsedQuestions[currentIndex].answer ;
+  // answer.textContent= parsedQuestions[currentIndex].answer ;
+  answer.textContent= parsedQuestions[deckAdjustedIndex].answer ;
   answer.id = 'answer' ;
   Question_list.appendChild(answer);
-  // let answer1 = document.getElementById('answer');
-  // Question_list.appendChild(answer1);
+
 
 }
 
@@ -296,8 +383,11 @@ let bar = document.getElementById('removable_divider');
 
 let img_1 = document.getElementById('img_1');
 
-  
+// Some cards will have pictures some not 
+if(img_1){  
 Question_list.removeChild(img_1);
+}
+
 
 Question_list.removeChild(answer1);
 Question_list.removeChild(bar);
@@ -400,7 +490,42 @@ function getDeck (){
     new Deck ('how whats your name','bob',"https://picsum.photos/201",'default');
     new Deck ('how do you say cool in english','cool',"https://picsum.photos/202",'default');
     new Deck ('how tall are you','10ft',"https://picsum.photos/203",'default'); 
+    new Deck ('check','10ft',"https://picsum.photos/203",'custom'); 
 
+    //##
+    new Deck ('What is HTML', 'HTML is a programing laguage for structuring a web page', 'www/static/pic','custom');
+
+    new Deck ('How would you identify a style for an element with an id of text in CSS?', '#text', 'www/static/pic','custom');
+
+    new Deck ('What character do you input to start of Doctype when coding HTML?', '!', 'www/static/pic','custom');
+
+    new Deck ('How do you select HTML elements using CSS?', 'Via CSS Selectors','','custom');
+
+    new Deck ('How is HTML Structured', 'Semantically','','custom');
+
+    new Deck ('What is Javascript','A scripting Language.','','custom');
+
+    new Deck ('How would you identify a style for an element with an id of text in CSS','#text','','custom');
+
+    new Deck ('What is the Css selector for a class','.','custom');
+
+    new Deck ('Which language is better Css or javascript','javascript','','custom');
+    //##
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     let strDeck = JSON.stringify(createDeck);
     localStorage.setItem('decks',strDeck);
 
@@ -409,7 +534,7 @@ function getDeck (){
   }
 
 
-  function Deck (question,answer,img=0 ,deck) {
+  function Deck (question,answer,img=0 ,deck='default') {
     // console.log('Deck constructor');
 
     this.question = question;
@@ -430,3 +555,16 @@ function getDeck (){
   }
 
 
+function getUniqueDecks(){
+  
+  
+  for(let i =0;i<parsedQuestions.length;i++){
+    let temp =   parsedQuestions[i].deck;
+
+    if( !uniqueDecks.includes(temp)){
+      uniqueDecks.push(temp) ;
+    }
+      
+    }
+
+ }//end getUniqueDecks()

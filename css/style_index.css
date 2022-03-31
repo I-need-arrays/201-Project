@@ -5,7 +5,8 @@ body{
 nav{
   border: 5px solid;
   background-color:cornflowerblue;
-  height: 3pc;
+  /* height: 3pc; */
+  height:7vh;
 }
 
 main{
@@ -13,8 +14,49 @@ main{
 }
 #question_area{
   border: 5px solid;
+  height:90vh ;
  
 }
 
 
+img{
+  width: 25pc ;
+}
+
+
+ul{
+  text-align: center;
+  font-size: 30pt;
+  list-style-type: none;
+}
+
+button{
+  text-align: center;
+  padding:0.5em 2em;
+  text-transform:uppercase;
+   box-sizing: border-box;
+  font-size: 20px;
+}
+
+/* subclasses of buttons  */
+#b1{
+  background-color:hsl(61, 100%, 50%);
+}
+
+#b2{
+  background-color:hsl(118, 96%, 50%);
+}
+
+
+#b3{
+  background-color:#f14e4e;
+}
+
+
+#b4{
+  background-color:#061283;
+  color:white;
+  /* font-size: 20px; */
+ 
+}
 
