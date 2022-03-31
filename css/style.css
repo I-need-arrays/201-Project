@@ -48,7 +48,7 @@ nav {
   color: #fff;
   margin-bottom: 30px;
   border: none;
-  border-bottom: 1px solid #fff;
+  /* border-bottom: 1px solid #fff; */
   outline: none;
   background: transparent;
 }
@@ -97,7 +97,7 @@ nav {
 }
 #list li {
   list-style: lower-alpha ;
-  list-style-position: inside;
+
   margin-top: 2px;
   padding: 5px;
   color:aliceblue;
