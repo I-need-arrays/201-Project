@@ -1,62 +1,62 @@
 `use strict`
 
+let lStorage = JSON.parse(localStorage.getItem("decks"));
+
+console.table(lStorage);
+
 //Array for holding cards
 let cards = [];
 
 
 
-//Parse stored data
-function parseData() {
+// //Parse stored data
+// function parseData() {
 
-};
+// };
 
 // Test Data: Key	Question 	Answer	Picture	Correct 	easy_correct	reviewed_today	DECK	Date Last Reviewed 	#of times Reviewed today
 
 //Constructor for creating cards
-function Card(key, question, answer, pic, correct, easyCorrect, lReviewed, deck, dateLR, rToday) {
-  this.key = key;
+function Card(question, answer, deck, views, correct, img) {
   this.question = question;
   this.answer = answer;
-  this.pic = pic;
+  this.deck= deck;
+  this.views = views;
   this.correct = correct;
-  this.easyCorrect = easyCorrect;
-  this.lReviewed = lReviewed;
-  this.deck = deck;
-  this.dateLR = dateLR;
-  this.rToday = rToday;
+  this.img = img;
 };
 
-//Create test objects
-const card1 = new Card(1, "What is JS", "A scripting Language.", "https://w7.pngwing.com/pngs/114/579/png-transparent-pink-cross-stroke-ink-brush-pen-red-ink-brush-ink-leave-the-material-text.png", 'Yes', 'Yes', "3/29/22", "Javascript", "3/29/22", "Yes");
-
-const card2 = new Card(2, 'What is HTML', "HTML is for structure", "www/static/pic", 'No', 'No', '3/29/22', 'HTML', "3/29/22", "Yes");
-
-const card3 = new Card(12, 'How is HTML Structured', "Semantically", "www/static/pic", 'No', 'No', '3/29/22', 'HTML', "3/29/22", "Yes");
-
-const card4 = new Card(2, 'How would you identify a style for an element with an id of text in CSS?', "#text", "www/static/pic", 'Yes', 'No', '3/29/22', 'CSS', "3/29/22", "Yes");
-
-const card5 = new Card(7, 'How do you declare a function with the name charter?', "function Charter(){};", "www/static/pic", 'No', 'No', '3/29/22', 'Javascript', "3/29/22", "Yes");
-
-const card6 = new Card(8, 'How would you attach a function to an element?', 'onSumbit=myFunction()', "0", 'Yes', 'No', '3/29/22', 'HTML', "2/29/22", "Yes");
-
-const card7 = new Card(10, 'What character do you input to start of Doctype when coding HTML?', "!", "www/static/pic", 'No', 'No', '3/29/22', 'HTML', "3/09/22", "Yes");
+//Constructor for creating cards
+// function Cards(question, answer, pic, correct, easyCorrect, lReviewed, deck, dateLR, rToday) {
+//   this.question = question;
+//   this.answer = answer;
+//   this.pic = pic;
+//   this.correct = correct;
+//   this.easyCorrect = easyCorrect;
+//   this.lReviewed = lReviewed;
+//   this.deck = deck;
+//   this.dateLR = dateLR;
+//   this.rToday = rToday;
+// };
 
 
-const card8 = new Card(9, 'How do you select HTML elements using CSS?', "Via CSS Selectors", "www/static/pic", 'Yes', 'Yes', '3/29/22', 'CSS', "3/22/22", "Yes");
+//Loop through storage and push to cardData array
+for (let index = 0; index< lStorage.length; index++) {
+
+  const question = lStorage[index].question;
+  const answer = lStorage[index].answer;
+  const deck = lStorage[index].deck;
+  const views = lStorage[index].views;
+  const img = lStorage[index].img;
+
+  cards.push([question, answer, deck, views, img]);
+};
+
+console.table(cards);
 
 
 //Push to cards array
-cards.push(card1);
-cards.push(card2);
-cards.push(card3);
-cards.push(card4);
-cards.push(card5);
-cards.push(card6);
-cards.push(card7);
-cards.push(card8);
 
-//show cards array contents
-console.table(cards);
 
 
 
@@ -83,8 +83,8 @@ function chartResults() {
   //Loop through card objects
   for (let index = 0 ; index < cards.length; index++) {
     //Getting Correect status
-    const correct = cards[index].correct; // Yes or No
-    const deck = cards[index].deck; // Name of the deck or category
+    const correct = cards[index][3]; // Yes or No
+    const deck = cards[index][2]; // Name of the deck or category
 
     tempData.push(deck + ',' +correct); 
     
@@ -104,22 +104,23 @@ function chartResults() {
     let counter = 0;
 
     let deckID = deckArray[index];
-   // console.log(deckArray[index]);
 
 
     for (let i = 0; i < cards.length; i++) {
       //console.log(target[0]);
-      let x = [cards[i].deck,cards[i].correct];
-      // console.log(x);
+      let x = cards[i];
+      let num = cards[i][3];
+      
+      console.log(x);
 
-      if (x.includes(deckID) === true && x.includes('Yes') === true) {
-        counter++;
-
+      if (x.includes(deckID) === true) {
+        counter=counter + num;
+        // console.log('yes');
       };
 
     };
     cardData.push(counter);
-    // console.table('Data :' + cardData);
+    console.table('Data :' + cardData);
   };
 
 // console.table(cardData);
