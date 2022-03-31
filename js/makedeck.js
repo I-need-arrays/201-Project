@@ -75,6 +75,24 @@ function getDeck (){
 
     new Deck ('When were oreos invented','1912','https://pbs.twimg.com/profile_images/1139616271836884992/FMZSOlcz_400x400.png','default');
 
+    new Deck ('What is HTML', 'HTML is a programing laguage for structuring a web page', 'www/static/pic','custom');
+
+    new Deck ('How would you identify a style for an element with an id of text in CSS?', '#text', 'www/static/pic','custom');
+
+    new Deck ('What character do you input to start of Doctype when coding HTML?', '!', 'www/static/pic','custom');
+
+    new Deck ('How do you select HTML elements using CSS?', 'Via CSS Selectors','','custom');
+
+    new Deck ('How is HTML Structured', 'Semantically','','custom');
+
+    new Deck ('What is Javascript','A scripting Language.','','custom');
+
+    new Deck ('How would you identify a style for an element with an id of text in CSS','#text','','custom');
+
+    new Deck ('What is the Css selector for a class','.','custom');
+
+    new Deck ('Which language is better Css or javascript','javascript','','custom');
+
 
 
     // let strDeck = JSON.stringify(createDeck);
