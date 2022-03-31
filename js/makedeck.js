@@ -7,6 +7,7 @@ let resultsBtn = document.getElementById('resultbtn');
 // ************************global varible
 let createDeck = [];
 let customDeck =[];
+let allDeck = [];
 
 //**************** Constroctor object********************** 
 function Deck (question,answer,img,deck) {
@@ -22,6 +23,8 @@ function Deck (question,answer,img,deck) {
   this.views = 0;
   this.correct = 0;
 
+  allDeck.push(this);
+
   // pushed to the empty array based on deck name
   // createDeck.push(this);
   if (this.deck === 'default') {
@@ -30,7 +33,7 @@ function Deck (question,answer,img,deck) {
   }else{
     customDeck.push(this);
   }
-  let strDeck = JSON.stringify(createDeck);
+  let strDeck = JSON.stringify(allDeck);
   localStorage.setItem('decks',strDeck);
 }
 // gets info from local storage to updated it, and checks if there is a local storage, other wise we hard coded some questions
@@ -49,10 +52,30 @@ function getDeck (){
 
   }else{
 
-    new Deck ('how old are you','1000','https://picsum.photos/200','default');
-    new Deck ('how whats your name','bob','https://picsum.photos/200','default');
-    new Deck ('how do you say cool in english','cool','https://picsum.photos/200','default');
-    new Deck ('how tall are you','10ft','https://picsum.photos/200','default'); 
+    // hard coding in question for default
+    new Deck ('Is this an apple','yes','https://media.istockphoto.com/photos/red-apple-with-leaf-isolated-on-white-background-picture-id185262648?b=1&k=20&m=185262648&s=170667a&w=0&h=2ouM2rkF5oBplBmZdqs3hSOdBzA4mcGNCoF2P0KUMTM=','default');
+
+    new Deck ('what HTML tag is this','paragraph','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREqAZHnb9nmmWG7br7HozAqbF2kcM7J0cXmQ&usqp=CAU','default');
+
+    new Deck ('How old is the oldest man alive',' Kane Tanaka','','default');
+
+    new Deck ('What language is this "ታዲያስ"','amharic','','default');
+
+    new Deck ('How many times do we breatheach day','20,000','https://i.guim.co.uk/img/media/d8b7a69601c6ac049fd8e57819786adc91506003/0_2_2545_1528/master/2545.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=694f53610eb345e25c763f20935d7c90','default');
+
+    new Deck ('Which Dr Seuss book has exactly 50 words in it','green eggs and ham','','default');
+
+    new Deck ('What state has the most tornadoes','Texas','https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/F5_tornado_Elie_Manitoba_2007.jpg/1200px-F5_tornado_Elie_Manitoba_2007.jpg','default');
+
+    new Deck ('How many dreams does the average person have in one night','4','https://cdn.shopify.com/s/files/1/2420/9425/files/Man_Sleeping_large.jpg?v=1574182163','default');
+
+    new Deck ('Whats the cookie monsters real name','Sid','https://i.scdn.co/image/ab6761610000e5eba3a7cba23d68a4e73c3b8155','default');
+
+    new Deck ('What percentage of U.S money havs cocaine traces','90%','','default');
+
+    new Deck ('When were oreos invented','1912','https://pbs.twimg.com/profile_images/1139616271836884992/FMZSOlcz_400x400.png','default');
+
+
 
     // let strDeck = JSON.stringify(createDeck);
     // localStorage.setItem('decks',strDeck);
