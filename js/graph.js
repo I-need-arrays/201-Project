@@ -2,11 +2,12 @@
 
 //Array for holding cards
 let cards = [];
+
+/////////////////////
 let defaultViews =0;
 let defaultCorrect =0;
 let customViews =0;
 let customCorrect =0;
-/////////////////////
 let returnDeck = localStorage.getItem('decks')
 if(returnDeck){
   createDeck = JSON.parse(returnDeck);

@@ -19,6 +19,9 @@ let currentDeck = deck_drop_down.value;
 // let currentDeck = 'custom';
 
 
+alert("--------------DIRECTIONS:\nClick No if you do not know the answer.\nClick Yes if you do  know the answer but would like practice.\nClick Suspend if the card is easy.\nClick NEXT to move to next card.")
+
+
  let suspender =0;  // turns to 1 every suspend so that on the final card when suspend is hit next will throw an error.
     
 
