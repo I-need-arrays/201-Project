@@ -7,12 +7,28 @@ let randomList = []; // GET LENGTH OF LOCAL STORAGE // MAKE LIST // MAKE RANDOM 
 let createDeck=[] ;
 let randList_2 =[] ;
 let currentIndex=0;
- let adjustmentForZero =0 ;
+let adjustmentForZero =0 ;
+let uniqueDecks=[];
+let temp = [];
+let deckAdjustedIndex = null;
+let img_for_question = document.getElementById('img_for_question');
+
+let deck_drop_down = document.getElementById("deck_drop_down") ;
+//##
+let currentDeck = deck_drop_down.value;
+// let currentDeck = 'custom';
+
+
+alert("--------------DIRECTIONS:\nClick No if you do not know the answer.\nClick Yes if you do  know the answer but would like practice.\nClick Suspend if the card is easy.\nClick NEXT to move to next card.")
+
 
  let suspender =0;  // turns to 1 every suspend so that on the final card when suspend is hit next will throw an error.
+    
 
 getDeck();
-
+    
+//##
+// changeCurrentDeck();
 
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -20,24 +36,8 @@ getDeck();
 //////To a list that can be used for logic 
 ///////////////////////////////////////////////////////////////////////////////////
 let retreivedQuestions = localStorage.getItem('decks');
+//##
 let parsedQuestions = JSON.parse(retreivedQuestions) ; 
-
-
-///////////////////////////////////////////////////////////////////////////////////
-//////Checks length of questions in memory. 
-//////Makes the initial random list 
-///////////////////////////////////////////////////////////////////////////////////
-
-makeCardList();
-
-
-
-// makeDB{
-//   //check if it database exists
-// // //else{
-// //   1-20 questions 
-// // }
-// }
 
 // add Event listeners 
 
@@ -52,6 +52,25 @@ no_button.addEventListener('click', handleNo);
 yes_button.addEventListener('click', handleYes);
 suspend_button.addEventListener('click', handleSuspend);
 next_button.addEventListener('click', handleNext);
+
+
+///////////////////////////////////////////////////////////////////////////////////
+//////Checks length of questions in memory. 
+//////Makes the initial random list 
+///////////////////////////////////////////////////////////////////////////////////
+
+makeCardList();
+
+getUniqueDecks();
+
+// makeDB{
+//   //check if it database exists
+// // //else{
+// //   1-20 questions 
+// // }
+// }
+
+
 
 
 let pause =1;  // Prevents adding in another answer when card is already displayed 
@@ -113,8 +132,8 @@ suspender =0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
-//////
-////// 
+////// Acts like NO and YES but does does not push to the 2nd list effectively 
+////// preventing it from being used in the future. 
 ///////////////////////////////////////////////////////////////////////////////////
 function  handleSuspend(){
   incrementViews() ;
@@ -125,7 +144,7 @@ function  handleSuspend(){
   // For strect play with the date and see if you can get it to stay out for 4 days 
   if(pause===1){
   showAnswer()
-  // incrementList();
+ 
   }
 
   suspender =1;
@@ -151,10 +170,35 @@ function  handleNext(){
                            }
 
                            incrementList();
-  removeAnswer() ;
+                            removeAnswer() ;
+
+  
+
   showQuestion() ; 
 pause =1 ;
 
+console.log('--------------' + currentDeck);
+if(deck_drop_down.value != currentDeck){
+  //this needs to filter the data
+  //make the parsed based on this deck
+  //
+  // changeDeck() ;
+  //##
+            changeCurrentDeck();
+            console.log('handleNext registered deck swap') ;
+            temp=[] ;
+            makeCardList();
+            // setFirstCard();
+
+}
+
+}
+
+
+
+
+function changeCurrentDeck(){
+  currentDeck = deck_drop_down.value ;
 }
 
 
@@ -165,24 +209,53 @@ pause =1 ;
 //////Known cards will be popped cards that need to be repeated will go to the front
 ///////////////////////////////////////////////////////////////////////////////////
 function makeCardList(){
+  //##add decks fn
+  // changeCurrentDeck();
+
+  //sorts the deck by the deck only
+  //this way you only see those cards 
+  
+  //##
+//  parsedQuestions = JSON.parse(retreivedQuestions)
+//  console.log('parsed inside ' + parsedQuestions.length);
+//  parsedQuestions;
+  
+
+  for (let i =0;i<parsedQuestions.length; i++){
+  //  console.log(  parsedQuestions[i].deck  );
+   
+  if(parsedQuestions[i].deck === currentDeck){
+      temp.push(i) ;
+      console.log('pushing @201   ' +parsedQuestions[i]  ) ;
+                }
+
+
+  }// end for 
+
+  // reassigns the parsed questions to the new sorted value 
+  
+
+
+
+
+  //##add decks fn
 
   // console.log('in make cards ' + parsedQuestions.length);
 
   //make sequence 
   //https://stackoverflow.com/questions/3751520/how-to-generate-sequence-of-numbers-chars-in-javascript
-  sequence = Array(parsedQuestions.length).fill().map((element, index) => index )
+ //## to select only the deck I populated the sequence with those that match the deck 
+  // sequence = Array(parsedQuestions.length).fill().map((element, index) => index )
   
   // shuffle sequence  set initial random list to this list 
-  randomList =   shuffle(sequence) ;
-  
+  //##
+  // randomList =   shuffle(sequence) ;
+  randomList =   shuffle(temp) ;
   //https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 
 setFirstCard() ;
 
                      }
-
-
-
 
 ///////////////////////////////////////////////////////////////////////////////////
 //////On startup checks the length of the list 
@@ -191,7 +264,16 @@ setFirstCard() ;
 
 function setFirstCard(){
   //sets the index position
+  
+  
+  //## this is not updating the cards now that there is a deck in it 
   currentIndex = randomList.length-1 ;
+  // this should give me the value of the card that should be adjusted
+      //  deckAdjustedIndex=randomList[currentIndex];
+
+    // currentIndex = currentIndex[randomList.length-1];
+  
+    //##
   // console.log("currentIndex = " + currentIndex) ;
 
   //displays the first question 
@@ -204,8 +286,11 @@ function incrementViews(){
   //increments the views 
   // console.log( parsedQuestions[currentIndex].views+1);
 
- 
-  parsedQuestions[currentIndex].views+=1 ; 
+  //##
+  // parsedQuestions[currentIndex].views+=1 ; 
+  deckAdjustedIndex=randomList[currentIndex];
+  parsedQuestions[deckAdjustedIndex].views+=1 ; 
+
   //clear out the old data 
   localStorage.removeItem('decks') ;
   //write in new data with incremented values
@@ -216,7 +301,10 @@ function incrementViews(){
 }
 
 function incrementCorrect(){
-  parsedQuestions[currentIndex].correct += 1 ; 
+  //##
+  //parsedQuestions[currentIndex].correct += 1 ; 
+    parsedQuestions[deckAdjustedIndex].correct += 1 ; 
+  
   //clear out the old data 
   localStorage.removeItem('decks') ;
   //write in new data with incremented values
@@ -226,9 +314,7 @@ function incrementCorrect(){
 
 }
 
-// function incrementQuestion(){
 
-// }
 
 
 
@@ -249,11 +335,32 @@ let qquestion = document.getElementById("Question");  //li
 //Get a  new question
 function showQuestion(){
 
-  
-  Question.textContent = parsedQuestions[currentIndex].question;
- 
+  //##
+  // Question.textContent = parsedQuestions[currentIndex].question;
+  deckAdjustedIndex=randomList[currentIndex];
+  console.log(deckAdjustedIndex , randomList);
+  Question.textContent = parsedQuestions[deckAdjustedIndex].question;
 
-  
+  //### image change position 
+  if(parsedQuestions[deckAdjustedIndex].img != "" || parsedQuestions[deckAdjustedIndex].img != 0){
+    // console.log('if works');
+
+    let img_for_question = document.getElementById('img_for_question') ;
+
+    img_for_question.innerHTML='';
+    let img_1 = document.createElement('img');
+    // Question_list.appendChild(img_1);
+    
+    // console.log(parsedQuestions[currentIndex].img);
+    img_1.src=parsedQuestions[deckAdjustedIndex].img;
+    
+    img_1.alt="Not Available";
+    img_1.id = 'img_1';
+    img_for_question.appendChild(img_1);
+
+  } 
+
+  //### image change position
 
 }
 
@@ -262,29 +369,52 @@ function showAnswer(){
   Question_list.appendChild(bar) ;
   bar.id='removable_divider';
 
-  if(parsedQuestions[currentIndex].img !=0 ){
-    // console.log('if works');
-    let img_1 = document.createElement('img');
-    Question_list.appendChild(img_1);
-    img_1.id = 'img_1';
-    // console.log(parsedQuestions[currentIndex].img);
-    img_1.src=parsedQuestions[currentIndex].img;
+  // if(parsedQuestions[currentIndex].img !=0 ){
+  //   // console.log('if works');
+  //   let img_1 = document.createElement('img');
+  //   Question_list.appendChild(img_1);
+  //   img_1.id = 'img_1';
+  //   // console.log(parsedQuestions[currentIndex].img);
+  //   img_1.src=parsedQuestions[currentIndex].img;
+  //   img_1.alt="Not Available";
 
-  } 
+  // } 
+
+  // if(parsedQuestions[deckAdjustedIndex].img !=0 ){
+  //   // console.log('if works');
+  //   let img_1 = document.createElement('img');
+  //   Question_list.appendChild(img_1);
+  //   img_1.id = 'img_1';
+  //   // console.log(parsedQuestions[currentIndex].img);
+  //   img_1.src=parsedQuestions[deckAdjustedIndex].img;
+  //   img_1.alt="Not Available";
+
+  // } 
 
 
   let answer = document.createElement('li');
-  answer.textContent= parsedQuestions[currentIndex].answer ;
+  // answer.textContent= parsedQuestions[currentIndex].answer ;
+  answer.textContent= parsedQuestions[deckAdjustedIndex].answer ;
   answer.id = 'answer' ;
   Question_list.appendChild(answer);
-  // let answer1 = document.getElementById('answer');
-  // Question_list.appendChild(answer1);
+
 
 }
 
 function removeQuestion(){
-  Question.removeChild(question);
+ 
+  let img_for_question = document.getElementById("img_for_question") ;
   
+  let img_1 = document.getElementById('img_1');
+
+  console.log(img_1);
+  if(img_1){  
+    img_for_question.removeChild(img_1);
+    }
+
+
+
+    Question.removeChild(question);
 
 }
 
@@ -296,8 +426,14 @@ let bar = document.getElementById('removable_divider');
 
 let img_1 = document.getElementById('img_1');
 
-  
-Question_list.removeChild(img_1);
+// Some cards will have pictures some not 
+// if(img_1){  
+// Question_list.removeChild(img_1);
+// }
+
+let img_for_question = document.getElementById('img_for_question') ;
+
+img_for_question.innerHTML='';
 
 Question_list.removeChild(answer1);
 Question_list.removeChild(bar);
@@ -396,11 +532,72 @@ function getDeck (){
     // new Deck ('how tall are you','10ft','defualt');
 
 
-    new Deck ('how old are you','1000','https://picsum.photos/200','default');
-    new Deck ('how whats your name','bob',"https://picsum.photos/201",'default');
-    new Deck ('how do you say cool in english','cool',"https://picsum.photos/202",'default');
-    new Deck ('how tall are you','10ft',"https://picsum.photos/203",'default'); 
+    // new Deck ('how old are you','1000','https://picsum.photos/200','default');
+    // new Deck ('how whats your name','bob',"https://picsum.photos/201",'default');
+    // new Deck ('how do you say cool in english','cool',"https://picsum.photos/202",'default');
+    // new Deck ('how tall are you','10ft',"https://picsum.photos/203",'default'); 
+    // new Deck ('check','10ft',"https://picsum.photos/203",'custom'); 
 
+    // //##
+    new Deck ('What is HTML?', 'HTML is a programing laguage for structuring a web page', 'www/static/pic','custom');
+
+    new Deck ('How would you identify a style for an element with an id of text in CSS?', '#text', 'www/static/pic','custom');
+
+    new Deck ('What character do you input to start of Doctype when coding HTML?', '!', 'www/static/pic','custom');
+
+    new Deck ('How do you select HTML elements using CSS?', 'Via CSS Selectors','','custom');
+
+    new Deck ('How is HTML Structured?', 'Semantically','','custom');
+
+    new Deck ('What is Javascript?','A scripting Language','','custom');
+
+    new Deck ('How would you identify a style for an element with an id of text in CSS?','#text','','custom');
+
+    new Deck ('What is the Css selector for a class?','.','','custom');
+
+    new Deck ('Which language is better Css or javascript?','javascript','','custom');
+
+
+    new Deck ('Is this an apple?','yes','https://media.istockphoto.com/photos/red-apple-with-leaf-isolated-on-white-background-picture-id185262648?b=1&k=20&m=185262648&s=170667a&w=0&h=2ouM2rkF5oBplBmZdqs3hSOdBzA4mcGNCoF2P0KUMTM=','default');
+
+    new Deck ('What HTML tag is this?','paragraph','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREqAZHnb9nmmWG7br7HozAqbF2kcM7J0cXmQ&usqp=CAU','default');
+
+    new Deck ('How old is the oldest man alive?',' Kane Tanaka','','default');
+
+    new Deck ('What language is this "ታዲያስ"?','amharic','','default');
+
+    new Deck ('How many times do we breatheach day','20,000','https://i.guim.co.uk/img/media/d8b7a69601c6ac049fd8e57819786adc91506003/0_2_2545_1528/master/2545.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=694f53610eb345e25c763f20935d7c90','default');
+
+    new Deck ('Which Dr Seuss book has exactly 50 words in it','green eggs and ham?','','default');
+
+    new Deck ('What state has the most tornadoes?','Texas','https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/F5_tornado_Elie_Manitoba_2007.jpg/1200px-F5_tornado_Elie_Manitoba_2007.jpg','default');
+
+    new Deck ('How many dreams does the average person have in one night?','4','https://cdn.shopify.com/s/files/1/2420/9425/files/Man_Sleeping_large.jpg?v=1574182163','default');
+
+    new Deck ('Whats the cookie monsters real name?','Sid','https://i.scdn.co/image/ab6761610000e5eba3a7cba23d68a4e73c3b8155','default');
+
+    new Deck ('What percentage of U.S money havs cocaine traces?','90%','','default');
+
+    new Deck ('When were oreos invented?','1912','https://pbs.twimg.com/profile_images/1139616271836884992/FMZSOlcz_400x400.png','default');
+
+
+
+    //##
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     let strDeck = JSON.stringify(createDeck);
     localStorage.setItem('decks',strDeck);
 
@@ -409,7 +606,7 @@ function getDeck (){
   }
 
 
-  function Deck (question,answer,img=0 ,deck) {
+  function Deck (question,answer,img=0 ,deck='default') {
     // console.log('Deck constructor');
 
     this.question = question;
@@ -430,3 +627,16 @@ function getDeck (){
   }
 
 
+function getUniqueDecks(){
+  
+  
+  for(let i =0;i<parsedQuestions.length;i++){
+    let temp =   parsedQuestions[i].deck;
+
+    if( !uniqueDecks.includes(temp)){
+      uniqueDecks.push(temp) ;
+    }
+      
+    }
+
+ }//end getUniqueDecks()
