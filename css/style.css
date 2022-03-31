@@ -5,9 +5,14 @@ header {
   align-self: flex-start;
 
 }
-nav {
-  width: max-content;
-  color: white;
+a {
+  margin-right: 10px;
+  color: aliceblue;
+  text-decoration: none;
+
+}
+a:hover{
+  color:dodgerblue;
 }
  body {
   margin: 0;
