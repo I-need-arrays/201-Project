@@ -13,14 +13,19 @@
 <div class="container">
   <ul class="navbar">
   <li><a href="index.html">Home</a></li>
-  <li><a href="makedeck.html">CreateCards</a></li>
-  <li><a href="graph.html">FlashCardHistory</a></li>
+  <li><a href="makedeck.html">Create Cards</a></li>
+  <li><a href="graph.html">Summary</a></li>
   </ul>
-  <div class="text">My Progress</div>
-  <div class="score-info"><p>TotalCorrect</p><p id="total">5 </p></div>
-  <canvas id="myChart">chart
+  <div class="text"></div>
+  <div class="score-info"><p id="total">TotalCorrect</p></div>
+  <canvas id="myChart" style="display:block">chart
   </canvas>
 </div>
+<div class="text">
+    <p id="average"> Average Score:  </p>
+    <p id="highest"> Deck with Highest Score:  </p>
+    <p id="lowest"> Deck with Lowest Score:  </p>
+  </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="js/graph.js"></script>
 </body>

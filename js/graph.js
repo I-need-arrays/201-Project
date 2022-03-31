@@ -59,18 +59,10 @@ cards.push(card8);
 console.table(cards);
 
 
-// function sum(a){
-//   let b = 1;
-//   return a + b;
-// }
-function displayResults(cards) {
-  //Loop to consolidate values
-};
-
-function chartResults() {
 
 //Array for holding card data
 let cardData = [];
+
 
 let tempData=[];
 
@@ -79,6 +71,11 @@ let correctNum = 0;
 
 //Array for holding deck names
 let deckArray = [];
+function chartResults() {
+
+
+
+
 
 //Calculate unique Deck
     let dTotal = 0;
@@ -98,24 +95,7 @@ let deckArray = [];
 
   };
 
-  // console.table(tempData);
-  // //Loop through card and add questions to deck array
-  // for (let i = 0; i < deckArray.length; i++) {
-  //   let deckId = deckArray[i];
-
-  //   //Loop through answers and write to cardData array
-  //   for (let index = 0; index < cards.length; index++) {
-  //     const correct = cards[index].correct; // Yes or No
-  //     const deck = cards[index].deck; // Name of the deck or category
-
-  //     if (correct === 'Yes' && deckId === deck) {
-  //       correctNum++;
-  //     }
-  //     //[2,1,1]
-
-  //   };
-  //   cardData.push(correctNum);
-  // };
+  //Array to hold correct
   let x = [];
  
 
@@ -136,25 +116,14 @@ let deckArray = [];
         counter++;
 
       };
-      // expected output: tru
-      
+
     };
-   
-    cardData.push(counter);  
-   console.table('Data :' + cardData);
+    cardData.push(counter);
+    // console.table('Data :' + cardData);
   };
 
-console.table(cardData);
+// console.table(cardData);
 
-  // console.table(deckArray);
-  
-  // [javascript, html, css]
-  // [1,1,2]  <cardData
-
-// cardData.push(correctNum);
-
-//cardData = [1,1,2];
-//Generate chart
 
   const ctx = document.getElementById('myChart').getContext('2d');
   const myChart = new Chart(ctx, {
@@ -173,12 +142,12 @@ console.table(cardData);
           'rgba(255, 159, 64, 0.2)'
         ],
         borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
+          'white',
+          'white',
+          'white',
+          'white',
+          'white',
+          'white',
         ],
         borderWidth: 1
       }]
@@ -186,7 +155,10 @@ console.table(cardData);
     options: {
       scales: {
         y: {
-          beginAtZero: true
+          ticks: { color: 'white', beginAtZero: true }
+        },
+        x: {
+          ticks: { color: 'white', beginAtZero: true }
         }
       }
     }
@@ -198,3 +170,57 @@ console.table(cardData);
 
 //Run chart function
 chartResults();
+
+function displayResults() {
+  
+  //Display sum
+   let sum = cardData.reduce(function(a, b){
+    return a + b;
+    }, 0);
+    console.log("Sum:" + sum)
+
+  //Display average
+  let avg = cardData.reduce(function(a, b){
+    return Math.round(a + b/cardData.length);
+    }, 0);
+
+  //Change the total correct on the webpage
+  let y = document.getElementById(`total`);
+  y.innerText = "Total Correct: " + sum;
+  
+//change the average on the webpage
+  let g = document.getElementById("average");
+  g.innerText = "Average Score: " + avg;
+
+
+  // Found the syntax for calculating the min/max at https://stackoverflow.com/questions/1669190/find-the-min-max-element-of-an-array-in-javascript
+  
+  //Calculate lowest category
+  let min_of_array = Math.min.apply(Math, cardData);
+
+  let r = cardData[min_of_array];
+  r = deckArray[r];
+  
+
+  let x = document.getElementById('lowest');
+  x.innerText = 'Deck With Lowest Score: ' + r;
+
+  
+
+
+  //Calculate highest category
+  let max_of_array = Math.max.apply(Math, cardData);
+  let f = cardData[max_of_array];
+  f = deckArray[f];
+
+  let z = document.getElementById('highest');
+  z.innerText= 'Deck With Highest Score: ' + f;
+
+ 
+  
+  
+
+};
+
+//Run chart function
+displayResults();
