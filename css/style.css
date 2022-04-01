@@ -96,14 +96,15 @@ a:hover{
   background-color: dodgerblue;
 }
 #list {
+  
+  list-style-position: inside;
+  list-style-type: n;
+  
   width: 450px;
-  height: 200px;
+  height: 250px;
   overflow: scroll;
 }
 #list li {
-  list-style-position: inside;
-  list-style-type: square;
-  list-style: lower-alpha ;
 
   margin-top: 2px;
   padding: 5px;
