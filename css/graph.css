@@ -2,9 +2,9 @@ header {
   margin-top: 10px;
   font-size: 1.5em;
   align-self: flex-start;
-
+  font-family:sans-serif;
+  margin-bottom: 20px;
 }
-
 
 body{
 
@@ -31,20 +31,19 @@ body{
 }
 
 .navbar { grid-area: navbar; 
-display: inline-block;
-padding: 10px;
-width: 100%;
-color: white;
-width: max-content;
-color: white;
+  margin-right: 10px;
+  color: aliceblue;
+  text-decoration: none;
 }
-.navbar > *{
-  list-style: disc;
-  list-style-position: inside;
-  margin-top: 2px;
-  padding: 5px;
-  color:white;
+a{
+  margin-right: 10px;
+  color: aliceblue;
+  text-decoration: none;
   
+}
+
+a:hover{
+  color:dodgerblue;
 }
 
 .text { grid-area: text; 

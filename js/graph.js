@@ -2,11 +2,15 @@
 
 let lStorage = JSON.parse(localStorage.getItem("decks"));
 
-console.table(lStorage);
+console.log(lStorage);
+
+if (lStorage === null){
+  alert("Looks like we don't have your deck info stored. Please visit the home page to get started!");
+}
 
 //Array for holding cards
 let cards = [];
-
+ 
 
 
 // //Parse stored data
@@ -26,18 +30,6 @@ function Card(question, answer, deck, views, correct, img) {
   this.img = img;
 };
 
-//Constructor for creating cards
-// function Cards(question, answer, pic, correct, easyCorrect, lReviewed, deck, dateLR, rToday) {
-//   this.question = question;
-//   this.answer = answer;
-//   this.pic = pic;
-//   this.correct = correct;
-//   this.easyCorrect = easyCorrect;
-//   this.lReviewed = lReviewed;
-//   this.deck = deck;
-//   this.dateLR = dateLR;
-//   this.rToday = rToday;
-// };
 
 
 //Loop through storage and push to cardData array
@@ -198,6 +190,7 @@ function displayResults() {
   
   //Calculate lowest category
   let min_of_array = Math.min.apply(Math, cardData);
+  console.log(min_of_array);
 
   let r = cardData[min_of_array];
   r = deckArray[r];
@@ -212,8 +205,9 @@ function displayResults() {
   //Calculate highest category
   let max_of_array = Math.max.apply(Math, cardData);
   let f = cardData[max_of_array];
+  console.log(f);
   f = deckArray[f];
-
+  console.log(f);
   let z = document.getElementById('highest');
   z.innerText= 'Deck With Highest Score: ' + f;
 
