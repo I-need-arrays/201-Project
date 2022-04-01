@@ -1,0 +1,96 @@
+/* 
+header {
+  margin-top: 10px;
+  font-size: 1.5em;
+  align-self: center;
+
+} */
+
+
+
+body{
+  background: linear-gradient(black ,dodgerblue);
+}
+nav{
+  display: flex;
+  justify-items: center;
+  height:7vh;
+  font-size: 1.5em;
+  /* align-items: center; */
+  text-align: center;
+  width:max-content;
+  margin:auto;
+  
+  font-family: 'Fredoka', sans-serif;
+}
+a {
+  margin-right: 10px;
+  color: aliceblue;
+  text-decoration: none;
+  padding:3px;
+  padding-top: 5px;
+  font-size: 25pt;
+}
+a:hover{
+  color:dodgerblue;
+}
+
+#deck_drop_down{
+  /* width:25px; */
+  height:4vh;
+}
+
+main{
+}
+#question_area{
+  height:90vh ;
+}
+#Question {
+  color: aliceblue;
+  font-family: 'Fredoka', sans-serif;
+  /* font-family: 'Hurricane', cursive;
+  font-family: 'Roboto', sans-serif; */
+
+  margin-top: 3%;
+}
+#question_area section {
+  margin-top: 3%;
+}
+img{
+  margin-top: 1%;
+  width: 25pc ;
+}
+ul{
+  text-align: center;
+  font-size: 30pt;
+  list-style-type: none;
+}
+button{
+  text-align: center;
+  padding:0.5em 2em;
+  text-transform:uppercase;
+  box-sizing: border-box;
+  font-size: 20px;
+}
+/* subclasses of buttons  */
+#b1:hover{
+  background-color:red;
+}
+#b2:hover{
+  background-color:hsl(118, 96%, 50%);
+}
+#b3:hover{
+  background-color:yellow;
+}
+#b4:hover{
+  background-color: blue;
+  color:white;
+  /* font-size: 20px; */
+}
+#answer {
+  font-size: 50pt;
+  color: aliceblue;
+  font-family: 'Fredoka', sans-serif;
+  font-family: 'Hurricane', cursive;
+  font-family: 'Roboto', sans-serif;
+}
