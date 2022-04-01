@@ -3,12 +3,24 @@ header {
   margin-top: 10px;
   font-size: 1.5em;
   align-self: flex-start;
-
+  right:23px;
 }
 a {
   margin-right: 10px;
   color: aliceblue;
   text-decoration: none;
+  padding:3px;
+  padding-top: 5px;
+  font-size: 25pt;
+
+
+  
+  margin-right: 10px;
+  color: aliceblue;
+  text-decoration: none;
+  padding:3px;
+  padding-top: 5px;
+  font-size: 25pt;
 
 }
 a:hover{
@@ -23,7 +35,11 @@ a:hover{
   align-items: center;
   height: 100vh;
   background: linear-gradient( black ,dodgerblue);
-  font-family:sans-serif
+  /* font-family:sans-serif */
+
+  font-family: 'Fredoka', sans-serif;
+  /* font-family: 'Hurricane', cursive; */
+  /* font-family: 'Roboto', sans-serif; */
 } 
 .center {
   position: absolute; 
@@ -96,12 +112,15 @@ a:hover{
   background-color: dodgerblue;
 }
 #list {
-  width: 300px;
-  height: 100px;
+  
+  list-style-position: inside;
+  list-style-type: n;
+  
+  width: 450px;
+  height: 250px;
   overflow: scroll;
 }
 #list li {
-  list-style: lower-alpha ;
 
   margin-top: 2px;
   padding: 5px;
@@ -110,7 +129,7 @@ a:hover{
 }
 #results{
   position: absolute; 
-  top: 60%;
+  top: 64%;
   left: 50%; 
   width: 400px;
   padding: 40px;

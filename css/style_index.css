@@ -1,3 +1,13 @@
+/* 
+header {
+  margin-top: 10px;
+  font-size: 1.5em;
+  align-self: center;
+
+} */
+
+
+
 body{
   background: linear-gradient(black ,dodgerblue);
 }
@@ -6,15 +16,30 @@ nav{
   justify-items: center;
   height:7vh;
   font-size: 1.5em;
+  /* align-items: center; */
+  text-align: center;
+  width:max-content;
+  margin:auto;
+  
+  font-family: 'Fredoka', sans-serif;
 }
 a {
   margin-right: 10px;
   color: aliceblue;
   text-decoration: none;
+  padding:3px;
+  padding-top: 5px;
+  font-size: 25pt;
 }
 a:hover{
   color:dodgerblue;
 }
+
+#deck_drop_down{
+  /* width:25px; */
+  height:4vh;
+}
+
 main{
 }
 #question_area{
@@ -23,8 +48,10 @@ main{
 #Question {
   color: aliceblue;
   font-family: 'Fredoka', sans-serif;
-  font-family: 'Hurricane', cursive;
-  font-family: 'Roboto', sans-serif;
+  /* font-family: 'Hurricane', cursive;
+  font-family: 'Roboto', sans-serif; */
+
+  margin-top: 3%;
 }
 #question_area section {
   margin-top: 3%;
