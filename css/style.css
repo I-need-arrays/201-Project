@@ -3,12 +3,24 @@ header {
   margin-top: 10px;
   font-size: 1.5em;
   align-self: flex-start;
-
+  right:23px;
 }
 a {
   margin-right: 10px;
   color: aliceblue;
   text-decoration: none;
+  padding:3px;
+  padding-top: 5px;
+  font-size: 25pt;
+
+
+  
+  margin-right: 10px;
+  color: aliceblue;
+  text-decoration: none;
+  padding:3px;
+  padding-top: 5px;
+  font-size: 25pt;
 
 }
 a:hover{
@@ -23,7 +35,11 @@ a:hover{
   align-items: center;
   height: 100vh;
   background: linear-gradient( black ,dodgerblue);
-  font-family:sans-serif
+  /* font-family:sans-serif */
+
+  font-family: 'Fredoka', sans-serif;
+  /* font-family: 'Hurricane', cursive; */
+  /* font-family: 'Roboto', sans-serif; */
 } 
 .center {
   position: absolute; 

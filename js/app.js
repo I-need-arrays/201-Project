@@ -19,7 +19,7 @@ let currentDeck = deck_drop_down.value;
 // let currentDeck = 'custom';
 
 
-alert("--------------DIRECTIONS:\nClick No if you do not know the answer.\nClick Yes if you do  know the answer but would like practice.\nClick Suspend if the card is easy.\nClick NEXT to move to next card.")
+// alert("--------------DIRECTIONS:\nClick No if you do not know the answer.\nClick Yes if you do  know the answer but would like practice.\nClick Suspend if the card is easy.\nClick NEXT to move to next card.")
 
 
  let suspender =0;  // turns to 1 every suspend so that on the final card when suspend is hit next will throw an error.
@@ -566,7 +566,7 @@ function getDeck (){
 
     new Deck ('What language is this "ታዲያስ"?','amharic','','default');
 
-    new Deck ('How many times do we breatheach day','20,000','https://i.guim.co.uk/img/media/d8b7a69601c6ac049fd8e57819786adc91506003/0_2_2545_1528/master/2545.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=694f53610eb345e25c763f20935d7c90','default');
+    new Deck ('How many times do we breath each day?','20,000','https://i.guim.co.uk/img/media/d8b7a69601c6ac049fd8e57819786adc91506003/0_2_2545_1528/master/2545.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=694f53610eb345e25c763f20935d7c90','default');
 
     new Deck ('Which Dr Seuss book has exactly 50 words in it','green eggs and ham?','','default');
 
