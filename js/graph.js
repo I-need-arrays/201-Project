@@ -123,7 +123,6 @@ function chartResults() {
   console.table('View Counter:' + viewArray);
   console.table(cards);
 
-
 // console.table(cardData);
 
 //Define the chart for display
@@ -185,8 +184,6 @@ function chartResults() {
       }
     }
   })
-
-
 
 };
 
