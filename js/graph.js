@@ -2,21 +2,18 @@
 
 let lStorage = JSON.parse(localStorage.getItem("decks"));
 
-console.log(lStorage);
+// console.log(lStorage);
 
+//If there is no data in local storage, notify the user
 if (lStorage === null){
   alert("Looks like we don't have your deck info stored. Please visit the home page to get started!");
 }
 
 //Array for holding cards
 let cards = [];
- 
 
-
-// //Parse stored data
-// function parseData() {
-
-// };
+//Array for holding views
+let viewArray=[]
 
 // Test Data: Key	Question 	Answer	Picture	Correct 	easy_correct	reviewed_today	DECK	Date Last Reviewed 	#of times Reviewed today
 
@@ -32,30 +29,29 @@ function Card(question, answer, deck, views, correct, img) {
 
 
 
-//Loop through storage and push to cardData array
+//Loop to push the card decks from local storage to the cards array
 for (let index = 0; index< lStorage.length; index++) {
 
   const question = lStorage[index].question;
   const answer = lStorage[index].answer;
+  const correct = lStorage[index].correct;
   const deck = lStorage[index].deck;
   const views = lStorage[index].views;
   const img = lStorage[index].img;
 
-  cards.push([question, answer, deck, views, img]);
+  cards.push([question, answer, deck,correct, views,  img]);
+  viewArray.push(views);
+  
 };
-
 console.table(cards);
 
-
-//Push to cards array
-
-
-
+console.table(viewArray);
 
 //Array for holding card data
 let cardData = [];
 
-
+console.log(cardData);
+//Temporary array for holding data
 let tempData=[];
 
 //Variables that change with each loop iteration
@@ -63,11 +59,10 @@ let correctNum = 0;
 
 //Array for holding deck names
 let deckArray = [];
+
+
+//Function to display results on a chart
 function chartResults() {
-
-
-
-
 
 //Calculate unique Deck
     let dTotal = 0;
@@ -87,37 +82,51 @@ function chartResults() {
 
   };
 
-  //Array to hold correct
+  //Temporary array to hold correct
   let x = [];
- 
 
-
+  //Temporary array to hold views
+  let viewCounter = 0;
+  //Loop through the cards and save decks and values for display
   for (let index = 0; index < deckArray.length; index++) { 
     let counter = 0;
 
+    //Define the deck id
     let deckID = deckArray[index];
-
 
     for (let i = 0; i < cards.length; i++) {
       //console.log(target[0]);
-      let x = cards[i];
-      let num = cards[i][3];
-      
+      let cardDeck = cards[i][2];
+      let card_Array = cards[i];
       console.log(x);
+      let num = cards[i][3];
+      let viewNum=cards[i][4];
+      
+      // console.log(x);
 
-      if (x.includes(deckID) === true) {
+      //Increment 
+      if (card_Array.includes(deckID) === true) {
         counter=counter + num;
-        // console.log('yes');
       };
+
+      if (deckID === cardDeck) {
+        viewCounter=viewCounter + viewNum
+      };
+
 
     };
     cardData.push(counter);
-    console.table('Data :' + cardData);
+    viewArray.push(viewCounter);
+    // console.table('Data :' + cardData);
   };
+  viewArray =viewArray.splice(-2, 2); // Remove last two values
+  console.table('View Counter:' + viewArray);
+  console.table(cards);
+
 
 // console.table(cardData);
 
-
+//Define the chart for display
   const ctx = document.getElementById('myChart').getContext('2d');
   const myChart = new Chart(ctx, {
     type: 'bar',
@@ -143,8 +152,28 @@ function chartResults() {
           'white',
         ],
         borderWidth: 1
-      }]
-    },
+      },{
+      label: '# of Views',
+      data: viewArray,
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)'
+      ],
+      borderColor: [
+        'white',
+        'white',
+        'white',
+        'white',
+        'white',
+        'white',
+      ],
+      borderWidth: 1
+    }]
+  },
     options: {
       scales: {
         y: {
@@ -164,6 +193,7 @@ function chartResults() {
 //Run chart function
 chartResults();
 
+//Display
 function displayResults() {
   
   //Display sum
@@ -195,12 +225,8 @@ function displayResults() {
   let r = cardData[min_of_array];
   r = deckArray[r];
   
-
   let x = document.getElementById('lowest');
   x.innerText = 'Deck With Lowest Score: ' + r;
-
-  
-
 
   //Calculate highest category
   let max_of_array = Math.max.apply(Math, cardData);
@@ -210,10 +236,6 @@ function displayResults() {
   console.log(f);
   let z = document.getElementById('highest');
   z.innerText= 'Deck With Highest Score: ' + f;
-
- 
-  
-  
 
 };
 
