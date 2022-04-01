@@ -96,11 +96,13 @@ a:hover{
   background-color: dodgerblue;
 }
 #list {
-  width: 300px;
-  height: 100px;
+  width: 450px;
+  height: 200px;
   overflow: scroll;
 }
 #list li {
+  list-style-position: inside;
+  list-style-type: square;
   list-style: lower-alpha ;
 
   margin-top: 2px;
@@ -110,7 +112,7 @@ a:hover{
 }
 #results{
   position: absolute; 
-  top: 60%;
+  top: 64%;
   left: 50%; 
   width: 400px;
   padding: 40px;
