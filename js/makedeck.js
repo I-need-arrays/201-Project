@@ -23,8 +23,6 @@ function Deck (question,answer,img,deck) {
   this.views = 0;
   this.correct = 0;
 
-  allDeck.push(this);
-
   // pushed to the empty array based on deck name
   // createDeck.push(this);
   if (this.deck === 'default') {
@@ -33,6 +31,7 @@ function Deck (question,answer,img,deck) {
   }else{
     customDeck.push(this);
   }
+  allDeck = [...createDeck,...customDeck];
   let strDeck = JSON.stringify(allDeck);
   localStorage.setItem('decks',strDeck);
 }
