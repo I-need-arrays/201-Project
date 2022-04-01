@@ -50,7 +50,7 @@ console.table(viewArray);
 //Array for holding card data
 let cardData = [];
 
-console.log(cardData);
+// console.log(cardData);
 //Temporary array for holding data
 let tempData=[];
 
@@ -98,7 +98,7 @@ function chartResults() {
       //console.log(target[0]);
       let cardDeck = cards[i][2];
       let card_Array = cards[i];
-      console.log(x);
+      // console.log(x);
       let num = cards[i][3];
       let viewNum=cards[i][4];
       
